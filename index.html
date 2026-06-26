@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobHub - Find Your Next Role</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        /* ===== HEADER NAVIGATION ===== */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 60px;
+            background: white;
+            border-bottom: 1px solid #f0f0f0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-brand-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+        }
+
+        .nav-stats {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-stat {
+            text-align: right;
+        }
+
+        .nav-stat-label {
+            font-size: 11px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .nav-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-top: 2px;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding: 80px 60px;
+            background: linear-gradient(180deg, #fafafa 0%, #ffffff 100%);
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #f3f0ff;
+            border: 1px solid #e9d5ff;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #6d28d9;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(120deg, #6366f1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+
+        /* ===== SEARCH SECTION ===== */
+        .search-section {
+            padding: 60px;
+            background: white;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .search-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .search-header {
+            margin-bottom: 24px;
+        }
+
+        .search-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .search-header p {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .search-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        input, select {
+            padding: 14px 18px;
+            border: 1.5px solid #e5e5e5;
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            background: white;
+            color: #1a1a1a;
+        }
+
+        input::placeholder {
+            color: #bbb;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.08);
+        }
+
+        .search-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn-search {
+            flex: 1;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-search:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-reset {
+            padding: 14px 24px;
+            background: #f5f5f5;
+            color: #666;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-reset:hover {
+            background: #e5e5e5;
+        }
+
+        .filters-quick {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .filter-badge {
+            padding: 8px 16px;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            color: #666;
+        }
+
+        .filter-badge:hover {
+            border-color: #6366f1;
+            color: #6366f1;
+            background: #f9f8ff;
+        }
+
+        .filter-badge.active {
+            background: #6366f1;
+            color: white;
+            border-color: #6366f1;
+        }
+
+        /* ===== JOBS GRID ===== */
+        .jobs-section {
+            padding: 60px;
+            background: white;
+        }
+
+        .jobs-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .jobs-header {
+            margin-bottom: 32px;
+        }
+
+        .jobs-header h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .jobs-header p {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .jobs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+        }
+
+        .job-card {
+            background: white;
+            border: 1.5px solid #f0f0f0;
+            border-radius: 14px;
+            padding: 28px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .job-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #6366f1, #ec4899);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .job-card:hover {
+            border-color: #e5d5ff;
+            background: #fafafa;
+            box-shadow: 0 12px 32px rgba(99, 102, 241, 0.1);
+            transform: translateY(-8px);
+        }
+
+        .job-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .job-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            gap: 12px;
+        }
+
+        .job-info {
+            flex: 1;
+        }
+
+        .job-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a1a1a;
+            line-height: 1.4;
+            margin-bottom: 6px;
+        }
+
+        .job-company {
+            font-size: 13px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .job-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .badge-startup {
+            background: #dbeafe;
+            color: #0c4a6e;
+        }
+
+        .badge-mnc {
+            background: #fce7f3;
+            color: #831843;
+        }
+
+        .badge-mid {
+            background: #fef3c7;
+            color: #7c2d12;
+        }
+
+        .job-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 18px 0;
+            padding: 18px 0;
+            border-top: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .meta-icon {
+            font-size: 14px;
+            width: 20px;
+        }
+
+        .job-salary {
+            font-size: 14px;
+            font-weight: 700;
+            color: #059669;
+            margin-top: 12px;
+        }
+
+        .job-footer {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-apply {
+            flex: 1;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-apply:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.3);
+        }
+
+        .source-badge {
+            padding: 12px 14px;
+            background: #f5f5f5;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0f0f0f;
+            color: #999;
+            padding: 40px 60px;
+            text-align: center;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        footer p {
+            font-size: 13px;
+            margin: 6px 0;
+        }
+
+        footer .highlight {
+            color: #6366f1;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            nav, .hero, .search-section, .jobs-section, footer {
+                padding: 20px;
+            }
+
+            .search-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .jobs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-stats {
+                gap: 16px;
+            }
+
+            .nav-stat-value {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-brand">
+            <div class="nav-brand-icon">→</div>
+            JobHub
+        </div>
+        <div class="nav-stats">
+            <div class="nav-stat">
+                <div class="nav-stat-label">Active Jobs</div>
+                <div class="nav-stat-value">450+</div>
+            </div>
+            <div class="nav-stat">
+                <div class="nav-stat-label">Companies</div>
+                <div class="nav-stat-value">180+</div>
+            </div>
+            <div class="nav-stat">
+                <div class="nav-stat-label">Last 24h</div>
+                <div class="nav-stat-value">42</div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-tag">✨ Your Career Starts Here</div>
+        <h1>Find Your <span class="hero-highlight">Perfect Role</span> in Tech</h1>
+        <p>Discover opportunities from India's fastest growing startups and established tech giants. All in one place.</p>
+    </section>
+
+    <!-- SEARCH -->
+    <section class="search-section">
+        <div class="search-container">
+            <div class="search-header">
+                <h2>Explore Opportunities</h2>
+                <p>Search through 450+ vetted positions</p>
+            </div>
+            
+            <div class="search-grid">
+                <input type="text" id="searchInput" placeholder="React, DevOps, Product Manager...">
+                <select id="categoryFilter">
+                    <option value="">All Types</option>
+                    <option value="startup">Startups</option>
+                    <option value="mnc">MNCs</option>
+                    <option value="mid">Mid-Size</option>
+                </select>
+                <input type="text" id="locationInput" placeholder="Bangalore, Remote...">
+                <select id="sourceFilter">
+                    <option value="">All Sources</option>
+                    <option value="LinkedIn">LinkedIn</option>
+                    <option value="GitHub">GitHub</option>
+                    <option value="AngelList">AngelList</option>
+                    <option value="Indeed">Indeed</option>
+                </select>
+            </div>
+
+            <div class="search-actions">
+                <button class="btn-search" onclick="filterJobs()">Search</button>
+                <button class="btn-reset" onclick="resetFilters()">Reset</button>
+            </div>
+
+            <div class="filters-quick">
+                <span class="filter-badge active" onclick="filterByTag('startup')">🚀 Startups</span>
+                <span class="filter-badge" onclick="filterByTag('mnc')">🏢 Fortune 500</span>
+                <span class="filter-badge" onclick="filterByTag('mid')">📈 Mid-Size</span>
+                <span class="filter-badge" onclick="filterByTag('remote')">🌍 Remote</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- JOBS -->
+    <section class="jobs-section">
+        <div class="jobs-container">
+            <div class="jobs-header">
+                <h2>Trending Roles</h2>
+                <p>Recently posted positions curated for you</p>
+            </div>
+            <div class="jobs-grid" id="jobsContainer"></div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2024 <span class="highlight">JobHub</span> — Aggregating opportunities from LinkedIn, GitHub, AngelList & Indeed</p>
+        <p>Updated every 3 hours | For India's brightest tech talent</p>
+    </footer>
+
+    <script>
+        const JOBS = [
+            {
+                title: "Senior React Developer",
+                company: "TechFlow",
+                category: "startup",
+                location: "Bangalore",
+                salary: "₹15-25 LPA",
+                type: "Full-Time",
+                source: "LinkedIn",
+                applyLink: "https://linkedin.com/jobs/search/?keywords=senior+react+developer+india"
+            },
+            {
+                title: "Full Stack Engineer",
+                company: "Google India",
+                category: "mnc",
+                location: "Hyderabad",
+                salary: "₹20-35 LPA",
+                type: "Full-Time",
+                source: "LinkedIn",
+                applyLink: "https://linkedin.com/jobs/search/?keywords=full+stack+engineer"
+            },
+            {
+                title: "Backend Developer (Node.js)",
+                company: "Razorpay",
+                category: "startup",
+                location: "Bangalore",
+                salary: "₹18-28 LPA",
+                type: "Full-Time",
+                source: "GitHub",
+                applyLink: "https://github.com/jobs?description=node+developer"
+            },
+            {
+                title: "DevOps Engineer",
+                company: "Flipkart",
+                category: "mnc",
+                location: "Bangalore",
+                salary: "₹16-26 LPA",
+                type: "Full-Time",
+                source: "LinkedIn",
+                applyLink: "https://linkedin.com/jobs/search/?keywords=devops+engineer"
+            },
+            {
+                title: "Frontend Developer (React/Vue)",
+                company: "Unacademy",
+                category: "startup",
+                location: "Delhi",
+                salary: "₹12-22 LPA",
+                type: "Remote",
+                source: "AngelList",
+                applyLink: "https://wellfound.com/jobs?keyword=frontend+developer"
+            },
+            {
+                title: "Data Engineer",
+                company: "Microsoft",
+                category: "mnc",
+                location: "Pune",
+                salary: "₹22-32 LPA",
+                type: "Full-Time",
+                source: "Indeed",
+                applyLink: "https://www.indeed.com/jobs?q=data+engineer"
+            },
+            {
+                title: "ML Engineer",
+                company: "Turing.com",
+                category: "startup",
+                location: "Remote",
+                salary: "₹16-24 LPA",
+                type: "Remote",
+                source: "LinkedIn",
+                applyLink: "https://linkedin.com/jobs/search/?keywords=ml+engineer"
+            },
+            {
+                title: "Cloud Architect",
+                company: "Amazon",
+                category: "mnc",
+                location: "Bangalore",
+                salary: "₹25-40 LPA",
+                type: "Full-Time",
+                source: "LinkedIn",
+                applyLink: "https://linkedin.com/jobs/search/?keywords=cloud+architect"
+            },
+            {
+                title: "Android Developer",
+                company: "OYO Rooms",
+                category: "startup",
+                location: "Gurgaon",
+                salary: "₹15-23 LPA",
+                type: "Full-Time",
+                source: "GitHub",
+                applyLink: "https://github.com/jobs?description=android+developer"
+            },
+            {
+                title: "Python Developer",
+                company: "Deloitte",
+                category: "mid",
+                location: "Delhi",
+                salary: "₹13-19 LPA",
+                type: "Full-Time",
+                source: "Indeed",
+                applyLink: "https://www.indeed.com/jobs?q=python+developer"
+            },
+            {
+                title: "Product Manager",
+                company: "Swiggy",
+                category: "startup",
+                location: "Bangalore",
+                salary: "₹20-30 LPA",
+                type: "Full-Time",
+                source: "LinkedIn",
+                applyLink: "https://linkedin.com/jobs/search/?keywords=product+manager"
+            },
+            {
+                title: "QA Engineer",
+                company: "Accenture",
+                category: "mid",
+                location: "Pune",
+                salary: "₹14-20 LPA",
+                type: "Full-Time",
+                source: "Indeed",
+                applyLink: "https://www.indeed.com/jobs?q=qa+engineer"
+            }
+        ];
+
+        let filteredJobs = [...JOBS];
+
+        function renderJobs(jobs = filteredJobs) {
+            const container = document.getElementById('jobsContainer');
+            
+            container.innerHTML = jobs.map(job => `
+                <div class="job-card">
+                    <div class="job-card-header">
+                        <div class="job-info">
+                            <div class="job-title">${job.title}</div>
+                            <div class="job-company">${job.company}</div>
+                        </div>
+                        <div class="job-badge badge-${job.category}">${job.category.toUpperCase()}</div>
+                    </div>
+
+                    <div class="job-meta">
+                        <div class="meta-item"><span class="meta-icon">📍</span> ${job.location}</div>
+                        <div class="meta-item"><span class="meta-icon">💼</span> ${job.type}</div>
+                    </div>
+
+                    <div class="job-salary">${job.salary}</div>
+
+                    <div class="job-footer">
+                        <a href="${job.applyLink}" target="_blank" class="btn-apply">
+                            Apply Now →
+                        </a>
+                        <span class="source-badge">${job.source}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterJobs() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const location = document.getElementById('locationInput').value.toLowerCase();
+            const source = document.getElementById('sourceFilter').value;
+
+            filteredJobs = JOBS.filter(job => {
+                return (!search || job.title.toLowerCase().includes(search) || job.company.toLowerCase().includes(search)) &&
+                       (!category || job.category === category) &&
+                       (!location || job.location.toLowerCase().includes(location)) &&
+                       (!source || job.source === source);
+            });
+
+            renderJobs();
+        }
+
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('categoryFilter').value = '';
+            document.getElementById('locationInput').value = '';
+            document.getElementById('sourceFilter').value = '';
+            filteredJobs = [...JOBS];
+            renderJobs();
+        }
+
+        function filterByTag(tag) {
+            document.querySelectorAll('.filter-badge').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (tag === 'remote') {
+                filteredJobs = JOBS.filter(j => j.location === 'Remote');
+            } else {
+                filteredJobs = JOBS.filter(j => j.category === tag);
+            }
+            renderJobs();
+        }
+
+        renderJobs();
+    </script>
+</body>
+</html>
